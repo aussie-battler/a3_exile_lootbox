@@ -1,945 +1,443 @@
-# LOOT BOX for Arma3 EXILE MOD and Community "a3_exile_lootbox"
-アイテム漁りに小さな幸せを・・
+# LOOT BOX for Arma3 EXILE MOD and Community " a3_exile_lootbox"
+A small happiness to fishing for items・・
 
-開発・著作：nabek (blog.ahh.jp) 2018/4
-※更新履歴は文末
+Development and copyright: nabek (blog. ahh. jp) 2018/4
+*Update history is at the end of the sentence
 
-# 取扱説明書（日本語）
+# Operating manual (Japanese）
 
-# Index / 目次
-- アドオン概要
-- 動作確認
-- 動作説明
-- インストール方法
-- 設定方法
-- 参考資料
-- ログ内容
-- ログエラーについて
-- 改造について
-- ライセンス・サポートについて
-- 既知の問題・バグ
-- たぶん開発者らしいnabekから
-- Change log　/ 更新履歴
+# Index / table of contents
+- Add-on Overview
+- Check the operation.
+- Operation description
+- How to install
+- Setting method
+- Resources
+- Log content
+- About Log errors
+- About mods
+- About license support
+- Known issues-bugs
+- Maybe from the developer-like nabek
+- Change log / update history
 
-## アドオン概要
-Arma3 EXILE MODサーバ用アドオンとなります。
-『町』に重きを置いた機能を中心に提供します。
-多くの機能は、マップデータから取得するため、基本的に無設定でも動作します。
+## Add-on Overview
+It is an add-on for Arma3 EXILE MOD server.
+We will provide mainly functions that place importance on the"town".
+Many functions are obtained from the map data, so basically it works with no settings.
 
-町でのアイテム漁りのために、通常のアイテム湧きとは別に、町中の地表または建物内のどこかに、アイテムボックスを配置します。
-アイテムボックスには、初期プレーヤーのためになるアイテムやポップタブ、ゴミが入っています。
-（アイテムボックス周辺に、ワイヤートラップや地雷を設置）
+For item fishing in the town, place the item box somewhere on the surface of the town or in the building, apart from the usual item spring.
+The item box contains items, pop-tabs, and trash that will be used for the initial player.
+(Wire traps and landmines are installed around the item box）
 
-車両湧きも、独自に搭載してます（機能を追加）
-他にも多くの機能を内蔵しており、序盤のプレーヤーを飽きさせない、普段とは違う雰囲気を提供できます。
+The vehicle springing up also, it is equipped with its own(add a function）
+There are many other features built-in that will keep players from getting bored and out of the ordinary.
 
-出来るだけ丁寧にコードを書いたつもりですので、ご安心ください。必要なら改造してください。
-必要なMODは、御座いません（設定内容に依存）
-必要なサーバアドオンとして、「Arma3 DMS(a3_dms)」が必要となります。
+Since I intend to have written the code as carefully as possible, please do not worry.Please remodel if necessary.
+There is no necessary MOD (depends on the setting）
+"Arma3 DMS(a3_dms)" is required as a server add-on.
 
-### ロケーションエンジンに関する機能
-	o 町に、アイテムボックスを配置
-		屋内／屋外にランダム配置されます
-		きめ細やかにアイテム要素を設定できます
-		また、同時にワイヤートラップを仕掛けられます
-	o 町に、湧き車両や航空機を配置
-		Server側との違いは、故障具合の細かな設定とアイテム湧き他
-		GRPトラップや、グレネードトラップもあります
-		（建物近くに湧くようになっており、道路上には湧きません）
-	o 町に、バンディット町ＡＩを配置
-		建物内に配置し、町を徘徊していたり、立て籠もってます
-		場所（高所）によってスナイパーとなります
-	o 町周辺に、地雷を配置
-		道路上に設置されます
-	o 町に、奇妙なオブジェクトや炎上オブジェクトを配置
-		いつもと違う街の風景をプレーヤーに与えます
-	o キャンプファイヤーをランダム設置
-	o トラベラーＡＩを配置
-		町と町の間を移動しているＡＩ達
-		移動しているアイテムボックスとお考えください
-	o アイアンマンＡＩ（無敵？）を配置
-		治癒能力を持つ無敵？バンディットＡＩ
-	o GPSトラップ
-		バンディットに見つかるとマップにマークされてしまいます
-		車両エンジンONでも確立で作動します
-	o グレネードトラップ
-		車両エンジンONにて確立でトラップが作動します
-		（スモーク又はミニグレネード）
+### Functions related to the location engine
+	o place the item box in the town
+		Randomly placed indoors / outdoors
+		You can set item elements finely
+		Also, a wire trap can be installed at the same time
+	o place vehicles and aircraft springing up in the town
+		The difference with the Server side is the detailed setting of the fault condition and other items spring up
+		There are also GRP traps and grenade traps
+		(It sprang up near the building and does not springing on the road）
+	o place Bandit AI in town
+		It is located in a building, wandering the town, or holed up
+		By location (altitude) will be a sniper
+	o place mines around town
+		Will be installed on the road
+	o place strange objects and flaming objects in the town
+		Give the player a different landscape of the city
+	o random installation of a campfire
+	o place the traveler AI
+		AI who are moving between town and town
+		Think of it as a moving item box
+	o Iron Man AI (invincible?Place )
+		Invincibility with healing ability?Bandit AI
+	o GPS trap
+		If found by bandit, it will be marked on the map.
+		On the vehicle engine also operates in the established
+	o grenade trap
+		It is established at the vehicle engine ON and the trap is activated
+		(Smoked or mini-grenades）
 
-### その他
-	o ポジション設定などは基本的に不要（自動認識）
-		自動でマップデータから取得して自動で作動します
-		マップを変えても、（基本的に）そのまま動作します
-	o 水汲みオブジェクトを固定設置できます
-	o マップにオリジナルの地名を作成できます
-	o マップにテキストを表示できます
-	o カスタム看板を作成できます
-		好きな画像を貼り付けられる
-	o サーバーメッセージ配信
-		定期的にメッセージを全プレーヤーに配信します
+### Other
+	o position setting is basically unnecessary(automatic recognition）
+		It is automatically acquired from the map data and operates automatically
+		Even if you change the map, it works as it is (basically
+	o Water drawing object can be fixed and installed
+	o you can create original place names in the map
+	o you can display text in the map
+	o you can create custom signage
+		You can paste any image you want
+	o server message delivery
+		Deliver messages to all players on a regular basis
 
-当LOOTBOXアドオンの起動は、他アドオンと並列で動作します（遅延・負荷時待機可）
-マップデータやサーバスペックによりますが、処理が完了するまでは、数分掛かります。
-プレーヤーがイン可能な状態のまま、処理が続行中の場合があります。
-（Arma3サーバの仕様によるもので、他アドオンも同様となっております）
-※参考：CUP Takistanの場合、約3分（Windows/Core i5）
+The start-up of this LOOTBOX add-on runs in parallel with other add-ons(waiting for delay or load）
+Depending on the map data and server specifications, it may take a few minutes for the process to complete.
+If the player is still available, the process may continue.
+(It is according to the specifications of Arma3 server, other add-ons are also the same）
+* Reference: for CUP Takistan, about 3 minutes(Windows / Core i5）
 
-## 動作確認
-Arma3 1.82.144710　64bit/32bit
-Exile MOD Server 1.0.3a/1.0.4a(Pineapple)
+## Check the operation
+Arma3 1.82.144710 64bit/32bit
+Exile MOD Server 1.0.3 a/1.0.4 a (Pineapple)
 Windows 10
-Linux(Ubuntu 17.10/18.04LTS)
+Linux(Ubuntu 17.10/18.04 LTS)
 
-## 動作説明
-[マップロケーション]
-マップに登録されているロケーション情報（町やランドマーク等）を対象にして、アイテムボックス等をランダムで配置します。
-デフォルトでは、「村・町・大きな町」の３種類を対象に、動作します。
-ロケーションタイプだけでなく、ロケーション地名を指定する事も可能です（マップ依存）
-タイプが合致すると、無条件に全ての町を対象にするため、無効にしたい場合は別途個別に設定してください。
+## Operation description
+[Map location]
+The location information registered in the map (towns and landmarks, etc.) to the target, placing the item boxes and the like at random.
+By default, it works for the ３ categories of"Village, Town, Big Town".
+It is possible to specify not only the location type but also the location name (depending on the map）
+If the type matches, it is unconditional for all towns, so if you want to disable it, set it separately.
 
-他のランドマークも対象にしたい場合は、以下を参照するか、マップデータを調査してください。
+If you also want to target other landmarks, see below or explore the map data.
 https://community.bistudio.com/wiki/Location
-	ロケーションタイプ名
-	NameVillage　村
-	NameCity　町
-	NameCityCapital　大きな町
-	NameLocal　何らかのランドマーク
-	Mount　山
-	Airport　空港
+	Location type name
+	NameVillage village
+	NameCity town
+	NameCityCapital Big Town
+	NameLocal some kind of landmark
+	Mount mountain
+	Airport
 	etc..
 
-	技術的：
-	マップデータには、地点毎に"タイプ名"と"地名"のセットで登録されてます。
-	よって、タイプではなく、地名で指定すると、その１箇所のみが対象となります。
-	町として登録されていない、任意のランドマーク（NameLocal）を対象にする場合は、ログファイルを参照して手動で設定してください。
-	（CUP Takistanの場合、"山・林"、"集落"や"オイルパイプライン"、"地雷原"など）
-	当アドオンで唯一、マップに依存する設定項目（NameLocal）となります。
+	Technical：
+	In the map data, it is registered in the set of"type name"and"place name"for each point.
+	Therefore, if you specify a place name, not a type, only one part of the target.
+	If you want to target any landmarks (NameLocal) that are not registered as towns, please set them manually by referring to the log file.
+	(For CUP Takistan,"mountain and forest","village","oil pipeline","minefield", etc.)）
+	It becomes the only setting item which depends on the map (NameLocal)in this add-on.
 
-	ランダム要素を増やすため、ロケーション発見時に、基準点を若干移動させます。
+	Move the reference point slightly when finding a location to increase the random element.
 	
-[新しいロケーション作成]
-マップ上に、独自にロケーションを作成する事ができます。
-このロケーションを動作対象にする事も可能となってます。
+[Create new location]
+You can create your own location on the map.
+It is also possible to make this location a target of operation.
 
-	技術的：
-	ロケーションタイプはArma3側で登録されている設定を引き継ぎます。
-	（マップ表示の色やフォント、サイズ、アイコン種類など）
+	Technical：
+	The location type takes over the settings registered on the Arma3 side.
+	(Map display color, font, size, icon type, etc）
 
-[アイテムボックス場所]
-アイテムボックスの設置箇所は、以下の条件内でランダムで決められます。
-	o MAPデータ内ロケーション登録地点を基準とした範囲内
-	o 範囲内の建物をランダムで選び、屋内外のいずれか
-	※屋内：屋内のいずれかの場所（主に窓際や出入り口等）
-		入口から最も遠い場所が選択されます
-	※屋外：建物の周囲、近辺になります
-	（いずれも範囲内に建物が無い場合、無効となります）
+[Item Box location]
+The location of the item box is randomly determined by the following conditions.
+	o location in the MAP data within the range based on the registration point
+	o pick a building in the range at random and either indoors or out
+	* Indoor: any indoor location(mainly by window or doorway, etc）
+		The place farthest from the entrance is chosen
+	* Outdoor:around and near the building
+	(If there is no building within the range, it will be invalid）
 	
-	技術的：
-	o 屋内湧きは、buildingPositionデータを利用します
+	Technical：
+	o indoor springing, utilize the buildingPosition data
 
-[アイテムリスト生成]
-アイテムボックスや湧き車両、バンディットＡＩの所持物に適用されます。
-アイテムリストは、単純なランダム生成では無く、複数の要素によって決められます。
-個々のアイテムボックス毎に、以下の各要素の合算分が統合され決定されます。
+[Item list generation]
+Applies to item boxes, springing vehicles, and possession of bandit AI.
+The item list is determined by multiple elements, not by simple random generation.
+For each individual item box, the sum of the following elements is consolidated and determined.
 
-アイテム要素　→　レア追加？　→　ゴミ化　→　シャッフル　→　決定
+Item element → rare added?　→ Garbage → shuffle → decision
 
-	o 固定（全タイプ共通）
-	o 固定(倍率指定されてる場合は、複数個ランダム)
-	o リスト内の５０％がランダムで選択
-	o ”レア”リスト内の１つがランダムで選択
-	o ”スペシャルレア”内から、確立で１つ選択
-	o ポップタブが範囲ランダムで追加
-	技術的：
-	可能な限り公平に分布されるよう計算の上配慮してます。
-	最終的にはリスト順番もバラバラになるようにしています。
-	（コンテナキャパシティ制限を考えたため、切り捨て）
+	o fixed (all types common）
+	o fixed (if the magnification is specified, multiple random)
+	５０％randomly selected in the o list
+	o one of the "rare" list is selected at random
+	o from within "special rare", select one in the establishment
+	o pop tab added in range random
+	Technical：
+	We have taken care of the calculation so that it is distributed as fairly as possible.
+	In the end, the order of the list will also fall apart.
+	(Truncate due to container capacity limit）
 
-[ゴミ化フィルター]
-仕上がったアイテムリストに対して、ゴミ率を割合として置換します。
-（つまり、ゴミ化率を１で設定すると、全てがゴミに変わってしまいます）
-同一設定で、村でのアイテムボックスは、ゴミが多い、という形に出来ます。
+[Garbage filter]
+Replaces the percentage of garbage with the finished list of items.
+(In other words, if you set the garbage reduction rate in one, all will be changed to garbage）
+In the same setting, the item box in the village can be in the form of a lot of garbage.
 
-[ポップタブ]
-アイテムボックスに、ランダムでポップタブが格納されます。
-設定された値を最大として、30%下限でランダムとなります。
-車両も同様となります。
+[Pop tab]
+The item box contains a random pop tab.
+The value set as the maximum, it will be random at 30% lower limit.
+The vehicle will be the same.
 
-	例：指定値1000の場合、1000 x 0.3 = 300（下限値）
-	300-1000の範囲でランダム
+	Example: for a specified value of 1000, 1000 x 0.3 = 300 (lower limit value）
+	Random in the range of 300-1000
 
-[アイテムボックストラップ]
-トラップワイヤーが、アイテムボックス近くに設置されます（屋外のみ＆確立）
-ランダムで周囲2m付近に設置されます。
-他トラップに変更する事ができます。
+[Item box strap]
+A trap Wire is placed near the item box(outdoor & established）
+It is installed around 2m in the circumference at random.
+You can change it to another trap.
 
-	技術的：
-	地形によっては、地面に隠れてしまう場合があります。
-	（微調整はしましたが・・限界が・・あります）
+	Technical：
+	Depending on the terrain, it may be hidden in the ground.
+	(I have fine-tuned it, but there is a limit）
 
-[アイテムボックス固定湧き]
-ロケーションとは関係無く、指定場所にアイテムボックスを湧かせる事ができます。
-迷路、山頂や行きにくい場所などのプライズ的な利用を想定しています。
+[Item box fixed springing]
+You can have the item box springing to the designated place regardless of the location.
+It is assumed a prized use, such as a maze, a mountaintop and a hard place to go.
 
-	技術的：
-	この項目に限った事ではありませんが、座標はX/Yのみで構いません。
-	Z値軸の"0"は、その地点の地表という意味になります。
-	例：[1800,2130,0]
-	セーフゾーンや拠点近くには設置できません。
+	Technical：
+	It is not limited to this item, but the coordinates can be only X/Y.
+	"0" on the Z-value axis means the ground at that point.
+	Example: [1800,2130,0]
+	It can not be installed in the safe zone or near the stronghold.
 
-[トラップ・地雷]
-１ロケーションの全てのアイテムボックスを置き終わると、周囲の道路上に地雷をランダムで配置します。
-とても、鬼畜な設定となりますので、ご注意ください。
-EAST側には、地雷の場所が分かってる形になっているため、ＡＩが掛かる事は無いかと思います。
-他トラップに変更する事ができます。
+[Traps-land mines]
+１ once you have placed all the item boxes in the location, you will randomly place the mines on the surrounding roads.
+Very, because it becomes brutal set, please note.
+On the EAST side, because it is in the form that the location of the land mine is known, I think that there is no AI hanging.
+You can change it to another trap.
 
-	技術的：
-	道の中央に設置されます。
-	マップデータで道路として認識されている場所全てが適用されます（空港の滑走路など）
+	Technical：
+	It is installed in the center of the road.
+	All locations recognized as roads in the map data will be applied(e.g. airport runway）
 
-[GPSトラップ]
-車両トラップか、バンディットに見つかった際に、マップ上に黒点マークされてしまいます。
-バンディットに見つかった（射撃された）場合は、必ずマークされます。
-バンディットは、当アドオンでスポーンしたものに限ります。
-（町ＡＩ、トラベラーＡＩ、アイアンマンＡＩ）
-射撃をトリガーとしているため、味方やゾンビなどに発砲した際も、マークされます。
-（ゾンビであっても、プレーヤーが付近に居る事が分かってしまいます）
-車両の場合でも、確立でトラップが作動します。
-マークされる場所は、おおよその場所となります。
+GPS trap .]
+When found in a vehicle trap or bandit, it will be marked as a black point on the map.
+If found in bandit (shot), it will be always marked.
+Bandit is limited to the ones you spawn with this add-on.
+(Town AI, traveler AI, Iron Man AI）
+It is also marked when shooting at a friend or a zombie because it is a trigger.
+(Even if it is a zombie, it will know that the player is in the vicinity）
+Even in the case of a vehicle, the trap is activated at the establishment.
+The places to be marked will be approximate.
 
-	技術的：
-	車両の場合、５０％の確立で、トラップが確定し、グレネードトラップかGPSトラップとなります。
-	マップマークは、ＡＩグループ単位で、１分間単位で更新されます。
+	Technical：
+	In the case of the vehicle, in the establishment of the second%, the trap is determined, it will be the grenade trap or GPS trap. ５０ 車両の ５０ ５０、５０センターでトラップが 確定定し、ｇｐｇトラップとなります。
+	The map marks are updated in AI Group increments and in one minute increments.
 
-[グレネードトラップ]
-車両特有のトラップで、エンジンを掛けた２秒後、スモークグレネードか、ミニグレネードが起爆します。
-およそ２０％の確立で、ミニグレネードになります。
+[Grenade trap]
+Two seconds after the engine has been applied, a smoke grenade or a mini grenade is triggered by a vehicle-specific trap.
+In the establishment of approximately ２０％, it will be a mini-grenade.
 
-	技術的：
-	イベントフックは最初の１回だけで、削除されます。
+	Technical：
+	The event Hook will be deleted at first one time only.
 
-[奇妙オブジェクト]
-指定されたオブジェクトを、範囲内のどこかにランダムで複数配置できます。
-デフォルトでは、枯れた木、銅像、ドラム缶、破損車両などが設定されています。
-壊れた車両や、ゴミ、古タイヤ、死体などを散らばらせ、いつもとは違う雰囲気を提供する事ができます。
-また、建物を置くことも可能であり、町を擬似的に様変わりさせる事が可能となってます。
+[Strange objects]
+You can place a random number of the specified objects anywhere within the range.
+By default, dead trees, statues, drums, damaged vehicles, etc. are set.
+It is possible to provide a different atmosphere than usual by scattering broken vehicles, garbage, old tires, carcasses, etc.
+In addition, it is also possible to put the building, it has become possible to change the city in a pseudo manner.
 
-	技術的：
-	ランダムで空き空間に配置していますが、可能な限り建物近くを選択します。
-	但し、フラット型は、道路に優先的に配置します（オイル漏れ、血溜まり、ゴミ帯など）
-	他オブジェクトとは重ならないよう、オブジェクトのサイズ設定にて回避可能となってます。
-	負荷的に、シミュレーションを無効にする事をお勧めします。
-	（CreateSimpleObjectにて生成します。約10-20%負荷低下）
+	Technical：
+	Randomly located in the free space, but you choose as close to the building as possible.
+	However, the flat type is placed preferentially on the road(oil leakage, blood pool, garbage band, etc）
+	It can be avoided by setting the size of the object so that it does not overlap with other objects.
+	On a load basis, it is recommended to disable the simulation.
+	(It is generated by CreateSimpleObject.About 10-20% load drop）
 
-[キャンプファイヤ]
-クラフトや調理、夜間の照明などに利用できる小さなキャンプファイヤを設置します。
-ランダムで、建物近くに置かれます。
-初期プレーヤーのための施策としてお使いください（スポーン地や村など）
+[Campfire]]
+A small campfire will be set up for crafting, cooking, night lighting, and more.
+At random, it will be placed near the building.
+Please use it as a measure for the initial player(such as spawning place and village）
 
-[炎上オブジェクト]
-町内にランダムで、炎上及び黒煙を、複数設置します。
-それと共に、オブジェクトをランダムで設置できます。
-車両やヘリだけでなく、建物や建築資材などのオブジェクトを設定できます。
-ヘリクラッシュのダミーとしても、遠方からでも町の場所が分かります。
+[Fire object]
+In the town random, fire and black smoke, multiple installation.
+Together with it, you can install objects at random.
+You can set up objects such as vehicles and helicopters, as well as buildings and building materials.
+As a dummy of heli-crash, you can see the location of the town even from a distance.
 	
-	技術的：
-	この項目に限った事ではありませんが、道路上は避けて設置されます。
-	ＡＩパトロール車両の衝突を防ぐためでもあります。
+	Technical：
+	It is not limited to this item, but it will be installed avoiding the road.
+	It is also in order to prevent the AI patrol vehicle collision.
 	
-[バンディット町ＡＩ]
-建物屋内（主に窓際・出入り口）に、バンディットＡＩをランダム配置する事ができます。
-建物内場所の高さが規定以上の場合に、スナイパーを配置できます。
-また、パトロールの可否についての設定も可能となってます。
-パトロールの際は、近場の車両や、道路、給油所を徘徊します。
-クラスをカスタムとして、装備を別に設定する事ができます。
-（ＡＩスキル設定に関しては、DMS設定が利用されます）
-建物が無い場合は、範囲内にランダム配置されます。
-プレーヤーを発見（発砲）した場合、おおよその場所にマップマークします。
-（名称：GPSトラップ）
+[Bandit town AI]
+Bandit AI can be randomly placed indoors (mainly near windows and inlets).
+If the height of the location in the building is more than the specified height, you can place the sniper.
+In addition, it is also possible to set the propriety of patrolling.
+When patrolling, loitering nearby vehicles, roads, and gas stations.
+You can set the class as a custom, the equipment can be set to another.
+(DMS settings are used for AI skill settings）
+If there is no building, it will be placed randomly within the range.
+If the player is found (fired), the map marks the approximate location.
+(Name: GPS trap）
 
-	技術的：
-	難易度は、DMS設定（random）としています。
-	プレーヤーが近くにいない時は、動作を停止しています（DMS Freeze）
-	マップ位置は、出来るだけ高台（ASL基準）を選択しますが、以下の場合は無視します。
-	o ロケーションタイプがairfield/Airport/military baseの場合
-	o 地域内高低差が10m以下の場合
+	Technical：
+	The difficulty level is set as DMS setting(random).
+	If the player is not nearby, it has stopped working (DMS Freeze）
+	The map position is selected as high as possible (ASL standard), but it is ignored in the following cases.
+	o if the location type is airfield/Airport / military base
+	o when the height difference in the region is less than or equal to 10m
 
-	屋内位置は、マップのbuildingPositionデータを利用します。
-	その中でも、近辺100m以内の道路に最も近い場所を選択します。
-	これはプレーヤーとの遭遇率を上げるための配慮となってます。
+	Indoor location utilizes the buildingposition data of the map.
+	Among them, select the closest location to the road within the vicinity 100m.
+	This is a consideration to increase the encounter rate with the player.
 
-	１ＡＩを１グループとして処理しています。
-	（Arma3では200を超えるグループを管理できますが、一応留意ください）
+	We are processing one AI as a group.
+	(Arma3 allows you to manage more than 200 groups, but bear that in mind）
 	
-	パトロールが許可されたＡＩは、近くの車両と道路、給油場所にウェイポイントが設定されます。最大５箇所
-	（いずれも、スポーン場所からロケーション設定範囲で検索）
-	ウェイポイントが少ない場合は、ロケーション基準点が利用されます。
-	最後にスポーン場所に戻り、巡回します。
+	The AI that the patrol is allowed, the way point is set in the nearby vehicles and roads, refueling place.Up to ５ places
+	(Both search in the location setting range from the spawn location）
+	If there are few waypoints, the location reference points are used.
+	Finally, return to the spawn location to patrol.
 
-	カスタムクラスにすると、装備を変更できます。
-	所持アイテムは、当アイテムボックスエンジンを利用します。
-	（LB_LootAllFixedItems（全固定設定）は利用されません）
+	If you make it a custom class, you can change the equipment.
+	For the possession of the item, we will use this item box engine.
+	(LB_LootAllFixedItems (all fixed settings) are not used）
 	
-[車両]
-Exileサーバでの湧き車両と同様にプレーヤーが自由に利用可能なものになります。
-建物近くの空き地に車両が配置され、アイテムボックスと同様に、インベントリ内にアイテムやポップタブを格納できます。
-湧いてるというよりも、誰かが駐車したという趣きになってます。
-また、ダメージを部位毎に指定する事が可能です。
-ガソリンの量指定はランダムで、下限と上限をそれぞれ指定できます。
-ランダムガソリンを利用しない場合は、上限が利用されます。
-建物が無い場合は、範囲内にランダム配置されます。
-エンジンを掛けた際、確立で、グレネードトラップが作動します（スモーク又はミニグレネード）
-（又は、GPSトラップが作動します）
+[Vehicle]
+Players will be freely available as well as vehicles springing up in the Exile server.
+A vehicle is located on a vacant lot near a building, and similar to an item box, you can store items and pop tabs in your inventory.
+It's more like someone parked the car than it is.
+In addition, it is possible to specify the damage to each site.
+The amount of gasoline specified is random, and the lower and upper limits can be specified, respectively.
+If you do not use the random gasoline, the upper limit will be used.
+If there is no building, it will be placed randomly within the range.
+When the engine is turned on, a smoke or mini-grenade trap will be activated at the establishment (smoke or mini-grenade）
+(Or, the GPS trap will activate）
 
-	技術的：
-	クラス名に”_bike”を含む場合は、ダメージ無しとなります。
-	ダメージ箇所は、参考資料をご覧ください。
-	車両タイプに応じて、範囲を吟味しております（建物との衝突防止）
-	固定翼航空機の湧きは、おすすめできません（物理演算）
+	Technical：
+	If the class name contains”_bike”, no damage is done.
+	Please refer to the reference for damage.
+	The range is examined according to the vehicle type(collision prevention with the building）
+	Fixed-wing aircraft springing is not recommended(physics）
 
 ----------------------------------------------------------------
-これより以下は、ロケーションエンジンとは関係無く、単独で機能します。
+The following will work independently from the location engine.
 ----------------------------------------------------------------
 
-[トラベラー]
-町と町の間を移動しているＡＩを配置します。
-マップ上の全てのキャピタル・シティ（大きな町）で発生し、近場の町を移動します。
-（マップによりますが、およそ1～1.5Km圏内）
-移動するアイテムボックスとしてお考え下さい。
-１グループのＡＩ個数を設定できます。
-装備は、ロケーションバンディット町ＡＩの装備設定が利用されます。
-所持アイテムとポップタブが設定できます。
-プレーヤーを発見（発砲）した場合、おおよその場所にマップマークします。
-（名称：GPSトラップ）
+[Traveler ]]
+Place the AI moving between towns.
+Occurs in all capital cities (large towns) on the map and moves nearby towns.
+(Depending on the map, around 1-1. 5 Km）
+Think of it as a moving item box.
+１ you can set the number of AI in the group.
+Equipment, location equipment settings of bandit town AI will be used.
+You can set the possession item and pop tab.
+If the player is found (fired), the map marks the approximate location.
+(Name: GPS trap）
 
-	技術的：
-	CUP Takistanマップでは、大きな町（NameCityCapital）は４箇所となります。
-	他マップでも、ほぼ同様かと思います。
-	ウェイポイントは、となり町のNameCityのいずれかが対象になります。
-	ほとんどの場合、道路が敷かれてるはずですので、道路での遭遇が想定されます。
-	ロケーションエンジン内で、対象の場所を収集しています。
+	Technical：
+	In CUP Takistan map, the Big Town (NameCityCapital) will be four places.
+	This is the best game I have ever played.
+	Waypoints will be subject to any of the town's NameCity.
+	In most cases, the roadway is supposed to be paved, so the encounter on the road is assumed.
+	Within the location engine, we are collecting the location of the target.
 	
-[アイアンマン]
-ゾンビ菌に耐性を持った特殊なバンディットで、驚異的な治癒力を持ってます。
-倒しても、また起き上がります（再生成湧き）
-倒れた場合、その場所からスモークが焚かれます。
-囚人服にサンタ帽、マシンガン＆グレネードを所持しています（鹵獲は出来ません）
-バイポット、スコープを装備しています。
-固定湧きとして、場所を指定します。１グループ複数ＡＩとして設定できます。
-難易度調整などにお使いください。
-プレーヤーを発見（発砲）した場合、おおよその場所にマップマークします。
-死んだ場合、全ての装備品やアイテムは削除されます。
-そのため、プレーヤーにとって、まったくウマミがありません。
+[Iron Man]
+It is a special bandit that is resistant to the zombie bacterium, it has a tremendous healing power.
+Even if you knock it down, you will get up again(regeneration Springs）
+If it falls, smoke is burned from the place.
+I have a cap, a machine gun, and a grenade in my prison suit(I can't capture myself).）
+It is equipped with a bi-pot and a scope.
+As a fixed springing, specify the location.１ you can set as group multiple AI.
+Please use such as difficulty adjustment.
+If the player is found (fired), the map marks the approximate location.
+If you die, all equipment and items will be removed.
+There are no umami marks for the player.
 
-	技術的：
-	ダメージイベントの際に、体力を全開しています。
-	300m程度をパトロールします。
-	身を隠さず、プレーヤーを発見次第、発砲します。
-	以下を装備しています。
+	Technical：
+	During the damage event, it is fully open the physical strength.
+	We will patrol about 300m.
+	Do not hide, as soon as you find the player, Fire.
+	It is equipped with:
 	MMG_01_hex_F/acc_flashlight/optic_AMS_snd/bipod_02_F_hex
-	ロケーションエンジン内で、対象の場所を収集しています。
-
-[水汲みオブジェクト]
-フレッシュウォーターをクラフト可能なオブジェクトを固定設置します。
-exile_3den.pboツールによるエクスポートに頼る事なく設置が出来ます。
-
-	技術的：
-	デフォルトのオブジェクトは"Land_WaterCooler_01_new_F"となります。
-	別途変更している場合は、コードの書き換えが必要となります。
-
-[カスタム看板]
-マップの任意の場所に、カスタム看板を設置できます。
-サーバルールやロゴなどサーバ独自色を出すことができます。
-ミッションファイルに格納された画像を貼り付けテクスチャーを変更できます。
-Edenエディタにて、位置と方向の数字だけメモして、設定してください。
-（方向は、rotation項目の"z"の値）
-看板オブジェクトでなくても、全てのオブジェクトで動作します（設定可能なオブジェクトのみ）
-
-	技術的：
-	画像ファイルはミッションファイルに格納されている必要があります。
-	Jpeg又は、Paa（Arma3独自）の形式の画像が利用できます。
-	（サイズは必ず、2^xサイズでなければなりません）
-	※64/128/256/512などの単位、512*256、512*512辺りが妥当
-	※できればファイルサイズを20KB以下
-	enableSimulationGlobal/enableRopeAttach/allowDamageなどはfalseで生成されます
-	テクスチャーを変更できないオブジェクトもあります。
-	（ここでは看板をお勧めします）
-	テクスチャーを、複数扱えるオブジェクトは、１つのみとなります。
-
-[マップ文字入れ]
-マップ上の任意の場所に文字を入れます。
-色の指定やサイズの指定が可能となってます。
-
-	技術的：
-	既存のマップマーカーの機能で実現してますので、大量に置くと負荷が掛かります。
-	サイズは、縦横それぞれに倍率指定となります。
-	本体又はミッション設定に依存しますので、フォントはここから選べません。
-
-[サーバーメッセージ配信]
-定期的に、全プレーヤーにメッセージを配信します。
-メッセージは複数定義でき、各行毎に、切り替えて配信します。
-
-	技術的：
-	配信間隔は、秒で指定できますが、実際の配信にはラグが相当含まれます。
-	Arma3の仕様上、フォントが特殊で日本語は潰れてしまうので読みづらくなります。
-	systemChatで配信してるため、スクロールですぐ消えてしまう場合があります。
-
-## インストール方法
-a3_exile_lootbox.pboをPBOアンパックし、必要な設定を行います。
-※PBOファイルの管理に、PBOManager（無料）が必要です
-※当文書（readme_jp.txt）は動作には不要ですので削除してください
-再度、a3_exile_lootbox.pboにPBOパックし直します。
-
-Exileサーバ内の、@ExileServer/addons/にPBOファイルとして配置してください。
-Exileサーバが自動的に呼び出します。
-また、必要に応じて、ミッションファイル（mission.sqm）に編集が必要となります（後述）
-サーバ動作時に、ログファイルにエラーが出ていないか確認します（後述）
-
-## 設定方法
-配布ファイル内にはいくつかのファイルが入っており、設定編集の際は、PBOアンパックする必要があります。
-基本的に、「config.sqf」のみが設定編集の対象です。
-
-	主な設定項目群
-	o 対象ロケーション
-	o アイテムタイプ
-	o トラップ関連
-	o バンディットAI関連
-	o 奇妙オブジェクト関連
-	o 炎上オブジェクト関連
-	o 車両湧き関連
-	o ロケーション作成
-
-	（非ロケーション関連）
-	o トラベラーＡＩ
-	o アイアンマン
-	o カスタム看板
-
-デフォルトの設定内容は、かなり質素なアイテム構成となってます。
-サーバの環境に合わせて、このアイテムボックスの立ち位置を決め、設定変更ください。
-基本的には、そのままの状態で全てのマップで自動動作します。
-
-[設定方法]
-Arma3スクリプティングの記法に合わせて、注意して編集してください。
-多くの部分は、一般的プログラム言語と同様の記法となってます。
-間違って記述した際は、スクリプトエラーとしてログに報告されます。
-
-	o []や{}や""などは必ず対になるようにしてください
-	o コードの行末は必ず";"セミコロンで終わらなければなりません
-	o 配列[]に関する設定部分では、要素間を","で区切って下さい
-	（但し、最後要素の後ろには、書く必要がありません）
-	o コード内にダブルバイト文字（日本語他）は利用できません
-	（但しコメント内は自由に記述できます）
-	o 文字コードは"UTF-8"で、改行コードは、サーバのOSに合わせてください
-	（Windows：CR/LF、Linux：LF）
-	o オブジェクトを指定する際は、正式なクラス名を記述してください
-	o 個数を設定する部分は、必ずしも、その数分だけ適用されるものではありません
-	（エラーなどで、処理が飛ばされる場合があるため。よって希望最大値となります）
-	o 確立設定の項目は、0.00～1.00を記述します。1が100%となります
-
-	[主要なファイル]
-	config.sqf		設定ファイル
-	putBoxes.sqf	実装部分
-	./functions/	汎用的なスクリプトファイル
-	readme_jp.txt	このファイル、運用開始時は削除してください
-	※他ファイルはおまじないのようなモノ
-
-[./config.sqfファイル]
-LB_DebugMode		デバッグモード
-LB_OutputLog		ログ出力するか？
-LB_PendingTime		起動時の待機秒
-※起動時に他アドオンと問題がある場合、起動時間をずらしてください
-
-(1)マーカー設定
-LB_MapMarker		マップ上にマークするか？
-LB_MapMarkerColor	マーカー色
-LB_MapMarkerType	マーカータイプ
-LB_MapMarkerColorMine	（トラップ）
-LB_MapMarkerTypeMine
-LB_MapMarkerColorAI		（バンディットＡＩ）
-LB_MapMarkerTypeAI
-LB_MapMarkerColorAITr	（トラベラーＡＩ）
-LB_MapMarkerTypeAITr
-LB_MapMarkerColorST		（奇妙／炎上オブジェクト）
-LB_MapMarkerTypeST
-LB_MapMarkerColorVehicle（車両）
-LB_MapMarkerTypeVehicle
-※設定値は、参考資料をご覧ください
-
-(2)コンテナオブジェクト設定
-LB_BoxObjClass_indoor[]	アイテムボックスの種類（屋外用）
-LB_BoxObjClass_outdoor[]アイテムボックスの種類（屋内用）
-※利用するコンテナオブジェクトを記述してください
-※他アドオンの動作に支障をきたす場合があるため、事前に調査ください
-（Exile_Container_SupplyBoxはヘリクラの場所決めに影響有り）
-
-(3)ロケーションタイプ設定
-LB_Locations[]		対象のロケーションタイプ
-※対象となるマップロケーションタイプを指定してください
-※デフォルトでは、登録されている全て町が対象となります
-※優先順位があるので、個別設定は先に記述してください
-※任意の町やランドマークを対象にする際は、ここに"NameLocal"を追加する必要があります
-※位置情報はマップデータから取得します
-※参考：https://community.bistudio.com/wiki/Location
-
-(4)新ロケーション設定
-LB_NewLocation[]	新しいロケーション設定
-	1:ロケーションタイプ
-	1:ロケーション名
-	2:位置
-	3:範囲
-※任意の場所を動作対象とする場合に記述してください
-（実際にロケーションとして登録されますので、他アドインの動作に注意してください）
-
-(5)ブラックリスト設定
-LB_Blacklist[]		任意の対象外エリア（[x,y,z],範囲）
-※Z軸は、0を指定してください
-LB_BLTrader			トレーダーからの半径(m)
-LB_BLSpawnZone		スポーンゾーンからの半径(m)
-LB_BLTerritory		拠点からの半径(m)
-LB_BLItembox		他要素との最小距離
-LB_BLBandit			他要素との最小距離
-LB_BLVehicle		他要素との最小距離
-※奇妙オブジェクトはブラックリストとは関係無く動作します
-※車両湧きも関係しますので、スポーンゾーン設定にご注意ください
-
-(6)ゴミアイテム設定
-LB_TrashItems[]		ゴミアイテムのリスト
-※貴サーバ環境にて、ゴミアイテムと思われるリストを記述してください
-
-(7)スペシャルレアアイテム設定
-LB_SRareItems[]		スペシャルレアのアイテムリスト
-※貴サーバ環境にて、極上レアアイテムと思われるリストを記述してください
-
-(8)アイテム群設定
-LB_LootGroups[		アイテムリスト区分
-	""				アイテムリスト区分名
-	[
-		[...]		固定湧きアイテム（倍率指定可）
-		[...]		５０％湧きアイテム（ランダムで半分抽出）	
-		[...]		レアアイテム(ランダムで１つ)
-	]
-]
-※当アドオンの最も重要な項目となります
-※クレイトボックスの容量を超えない様に注意してください
-※アサルト（特にスナイパー系）は、想像以上にサイズが大きいので注意
-
-(9)ロケーション毎設定
-LB_LocationLoot[	ロケーション毎の湧き設定
-	[
-		""			1:対象ロケーション又は地名
-		[...]
-					2:範囲(m)
-					3:アイテムボックスの数
-					4:固定湧きの倍数（１～ｘ倍：ランダム）
-					5:外・建物湧きの割合（０～１）％
-					6:スペシャルレア・アイテムの湧き割合（０～１）％
-					7:ポップタブの最大値（30%～ランダム）
-					8:ゴミアイテムで占める割合（０～１）％
-					9:バンディットAIの数（建物内湧き）
-					10:道路上の地雷の個数
-					11:ワイヤートラップの設置確立（０～１）％
-					12:奇妙オブジェクトの設置数（０～ｘ）
-					13:車両の数
-					14:車両のタイプ（複数）
-					15:アイテム区分の指定（複数）
-	]
-]
-※ロケーションタイプ名の他、LocalNameの地名でも構いません
-※地名を使う場合は、LB_Locationsに"NameLocal"を追加してください
-※アイテムボックスやAI、車両などは様々な条件で湧かない場合があるため、多めな値をお勧めします
-※多くのAIを配置する事は避けて下さい（Arma3制限のため）最大20
-※ロケーション毎、車両の湧き最大数は10となっています
-
-(10)固定アイテムボックス
-LB_StaticBox		固定湧きの設定
-	1:場所
-	2:アイテム区分の指定（複数）
-	3:固定湧きの倍数（１～ｘ倍：ランダム）
-	4:スペシャルレア・アイテムの湧き割合（０～１）％
-	5:ゴミアイテムで占める割合（０～１）％
-	6:ポップタブの最大値（30%～ランダム）
-※設定内容は、他アイテムボックス項目と同様となります
-
-(11)バンディットＡＩ設定
-LB_BanditSide		AIのサイド（east/west/resistance/civilian）
-LB_BanditDifficulty	AIの難易度（DMS設定参照）
-LB_BanditClass		AIの種類（カスタム又はDMS設定）
-LB_BanditSniper		この高さ以上の場合スナイパー(m)
-LB_BanditMove		移動可能なAI率（０～１）％
-※DMSアドオンにてＡＩを生成しますので、DMS側設定に依存します
-※高い場所の建物で、近隣の道路が見える場所を優先的に選択します
-（但し、軍事施設や空港は建物が少ないため例外となります）
-※最も高い場所が、優先的にスナイパーとなります。町１人のみ
-（現段階では、適切なスナイパー位置に立ちません）
-※ＡＩは基本的にその場所を離れませんが、攻撃された場合などは例外となります
-[カスタムクラス時の装備設定]
-ランダムで選択されます。
-所持アイテムは、他アイテムと同様の設定ですが、固定湧きは無効となります。
-他アドオンとの差別化を計る上、初期系、サブマシンガンをお勧めします。
-LB_BanditUniforms[]
-LB_BanditVests[]
-LB_BanditHeadgear[]
-LB_BanditWeapon[]
-LB_BanditWeaponAttach[]	50%未装備
-LB_BanditPistol[]
-LB_BanditPistolAttach[]	50%未装備
-LB_BanditAssignedItems[]
-LB_BanditLauncher[]		30%未装備
-LB_BanditBackpack[]		20%未装備
-LB_BanditItem[]			※機能しますが、お勧めしません
-
-LB_BanditItemGroups	格納アイテムグループ
-LB_BanditItemCfg	所持アイテムリスト設定[]
-	1:固定湧きの倍数（１～ｘ倍：ランダム）
-	2:スペシャルレア・アイテムの湧き割合（０～１）％
-	3:ゴミアイテムで占める割合（０～１）％
-	※該当するアイテムボックス設定と同等となります
-LB_BanditMaxPoptab	最大ポップタブ（30%～ランダム）
-
-LB_Traveler			トラベラーAIの有無
-
-(12)トラップ設定
-LB_NearMine			アイテムボックス近くの爆発物の種類
-LB_RoadMine			道路上の爆発物の種類
-※複数記述でき、その場合ランダムで選択されます
-
-(13)車両湧き設定（自転車／航空機含む）
-LB_VRandomFuel		燃料ランダム(true/false)
-LB_VFuelLow			最小燃料(0-1)
-LB_VFuelMax			最大燃料(0-1)
-LB_VBrokenParts		完全に壊れてる部位[]（複数）
-LB_VDamageChance	故障割合(0-1)
-LB_VDamageLow		最小ダメージ(0-1)
-LB_VDamageMax		最大ダメージ(0-1)
-LB_EngineOn			エンジンON(0-1)
-LB_LightOn			ライトON(0-1)※Arma3バグ含
-LB_VItemGroup[]		格納アイテムグループ
-LB_VItemConfig		アイテムリスト設定[]
-	1:固定湧きの倍数（１～ｘ倍：ランダム）
-	2:スペシャルレア・アイテムの湧き割合（０～１）％
-	3:ゴミアイテムで占める割合（０～１）％
-	※該当するアイテムボックス設定と同等となります
-LB_VPoptabMax		格納ポップタブ（30%～ランダム）
-LB_Vehicles			車両オブジェクトタイプ定義[]（複数）
-	1:タイプ定義名
-	2:車両クラス（複数）
-※Server側車両湧きや自転車湧きと併用して頂いて構いません
-※Server側の車両湧きと置き換えも可能ですが、船湧きは対応してません
-※通常は約10mの空間、車両タイプ名が、"poor"は5m、"air/tank/army"だと20mとなります
-※自転車／クアッドバイク等は、ダメージ設定対象外となります（"_Bike_"を含む車両）
-※壊れてる部位は、部位名の部分一致で調べます
-
-(14)キャンプファイヤ設定
-LB_FirePlaceObjs[]	オブジェクト
-
-(15)奇妙オブジェクト設定
-LB_StrangeObjs[]	奇妙なオブジェクトのリスト
-	1:オブジェクトクラス名
-	2:おおよその大きさ（半径m）
-	3:道路上に設置可能か？（true/false）
-	4:シミュレーションを行うか？（true/false）
-※オブジェクトクラス名は、Edenエディタで調べられます（log:コピーペースト可）
-※大きさ指定は、その範囲だけ空き地があれば設置可能という意味になります
-※シミュレーションは、機能や動作を伴うオブジェクトの場合trueにしてください（扉やファイヤ等）
-※デフォルトでは、CUP Terrains MODのオブジェクトが記述されてるので、不要な場合は削除してください
-
-(16)炎上オブジェクト設定
-LB_FlamingObjs[]	炎上させるオブジェクトのリスト
-
-(17)トラベラー設定
-LB_TravelerGrpMaxAI			１グループのＡＩ数
-LB_TravelerItemGrp[]		格納アイテムグループ
-LB_TravelerItemCfg			アイテムリスト設定[]
-LB_TravelerPoptabMax		最大ポップタブ（30%～ランダム）
-
-(18)アイアンマン設定
-アイアンマンを設置します
-LB_IronMan[]
-	1:場所			[]で空港か軍事施設でランダム湧き
-	2:AI数
-
-(19)水汲みオブジェクト設定
-LB_CleanWaterObj[]
-	1:場所
-	2:角度（0-359）　*EdenエディタのRotation-Z値
-LB_CleanWaterCount	設置数（-1で全てとなります）
-※設置数の指定により、ランダムで選択されます
-
-(20)カスタム看板設定
-任意の場所にカスタム看板を設置します
-LB_CBillboards[]	任意設置カスタム看板設定
-	1:オブジェクト
-	2:場所
-	3:角度（0-359）　*EdenエディタのRotation-Z値
-	4:画像
-※EDENエディタで位置と角度をメモしてください
-※画像ファイルは、ミッションファイルに格納してください
-※看板を目的としていますが、他オブジェクトも変更可能となってます
-※テクスチャーを変更できるオブジェクトは決められています
-※テクスチャーサイズは、２のべき乗で、jpeg又はpaaである必要があります
-
-(21)マップ文字入れ設定
-LB_Maptext[]		マップ文字設定
-	1:マップ位置
-	2:文字
-	3:文字色
-	4:サイズ（縦横スケール値） *[縦,横]
-
-(22)サーバーメッセージ配信
-LB_Bcmessage[]		メッセージ本文
-LB_BcmessageTime	配信間隔（秒）
-
-## 参考資料
-[マップマーカー色]
-https://community.bistudio.com/wiki/CfgMarkerColors_Arma_3
-[マップマーカータイプ]
-https://community.bistudio.com/wiki/cfgMarkers
-[ロケーションタイプ]
-https://community.bistudio.com/wiki/Location
-[爆発物]
-ATMine/APERSMine/APERSBoundingMine/SLAMDirectionalMine/APERSTripMine
-SatchelCharge_F/DemoCharge_F/Claymore_F/IEDUrbanBig_F/IEDLandBig_F/IEDUrbanSmall_F/IEDLandSmall_F
-UnderwaterMine/UnderwaterMineAB/UnderwaterMinePDM
-https://community.bistudio.com/wiki/Arma_CfgVehicles_Other
-※検索するとオブジェクト画像が見れます(Ctrl+F)
-[アイテム種類]
-EXILEミッションファイルのconfig.cppを参考に記述してください。
-（トレーダー辺りが一覧で見易いかと思います）
-[車両ダメージ基本部位]
-HitEngine (engine #1)／HitEngine2 (engine #2)／HitEngine3 (engine #3)／HitHRotor (main rotor)／HitVRotor (tail rotor)／HitBatteries (electrical systems)／HitLight (landing light)／HitHydraulics (entire hydraulics system)／HitTransmission (engine transmission)／HitGear (landing gear)／HitFuel (all fuel tanks)／HitHStabilizerL1 (first left horizontal stabilizer)／HitHStabilizerR1 (first right horizontal stabilizer)／HitVStabilizer1 (first vertical stabilizer)／HitTail (tail boom)／HitPitotTube (all pitot tubes)／HitStaticPort (all static ports)／HitStarter1 (starter for engine #1)／HitStarter2 (starter for engine #2)／HitStarter3 (starter for engine #3)／HitAvionics／HitHull／HitMissiles／HitRGlass／HitLGlass／HitGlass1／HitGlass2／HitGlass3／HitGlass4／HitGlass5／HitGlass6
-※オブジェクトによって部位は変わります
-[人間ダメージ部位]
-HitFace／HitNeck／HitHead／HitPelvis／HitAbdomen／HitDiaphragm／HitChest／HitBody／HitArms／HitHands／HitLegs
-neck／head／pelvis／spine1／spine2／spine3／body／hands／legs
-※当アドオンには関係ない資料
-[Arma3内蔵サウンドファイル]
-Arma 3: SoundFiles
-https://community.bistudio.com/wiki/Arma_3:_SoundFiles
-
-## ログ内容
-ログ出力の先頭は、「[LOOTBOX]::」で始まるようになってます。
-かなりの量のログが出力されますので、必要に応じてログ出力を無効にしてください。
-ほとんどが、サーバ起動時のログとなりますが、イベント発生時に出力される事があります。
-
-正常な場合以下のログ出力の後、メイン処理に移ります。
-コード上に文法エラーがある場合、ここでエラーとなります。
- "[LOOTBOX]:: Loot boxes v1.10 (02-04-2018) starting"
- "[LOOTBOX]:: Loading Config"
- "[LOOTBOX]:: Initialised"
- "[LOOTBOX]:: Starting Loot boxes"
-
-まず最初に、ロケーション作成が実行されます。
- "[LOOTBOX]:: create new location : NameCity:Scrap Yard [5200,11300,0]"
-
-ロケーション設定が見つからなかった場合、以下が出力されます。
-マップ上の全ての地名が出力されますので、特定地を対象にしたい場合は、参考にできます。
-（空港の扱いはマップによって違うようです）
-以下は、"NameLocal"というタイプ名で、"Darbang pass"という地名となります。
-
- "[LOOTBOX]:: nothing location config : NameLocal:Darbang pass"
- 
-ロケーションが見つかった場合、場所名と、適用されるロケーション設定値が出力され、
-ここから、作成されるアイテムボックス分だけ、以下が繰り返されます。
-
- "[LOOTBOX]:: found NameCity:Anar [5910.59,5687.44] radius:200 box:5"
-	（アイテムボックスが置かれた場合）
- "[LOOTBOX]:: (items:21 trash:6 s-rare:true)"
-　"[LOOTBOX]:: put 1/5 [5931.98,7181] House:true Exile_Container_Storagecrate"
-	（場所が見つからなかった場合）
-　"[LOOTBOX]:: 1/5 canot found places"
-※見つからない理由としては、スポーンゾーン／トレーダー／拠点近くの場合があります。
-
-同時にトラップワイヤーが設置された場合は、場所が出力されます。
- "[LOOTBOX]:: trap [5247.08,6070.86]"
- 
-地雷が設置された場合は、以下のようになります。
- "[LOOTBOX]:: mine 1/2 [5296.96,11317.8,0.0228882]"
-
-バンディットAIを設置した場合は、以下のようになります。
-"wp"は、登録したウェイポイント先となります（車両、道路、ガソリンスタンド等）
- "[LOOTBOX]:: AI 2/3 custom [6394.32,11317.6,3.0638]"
- "[LOOTBOX]:: wp 1 [6566.41,10703.9,0.165947] (vehicle)"
- "[LOOTBOX]:: wp 2 [5888.28,11888.3,0.0886993] (vehicle)"
- "[LOOTBOX]:: wp 3 [5924.98,11892.8,0] (road)"
- "[LOOTBOX]:: wp 4 [6394.32,11317.6,3.0638] (cycle)"
-建物に立て籠もり状態の場合は、以下のようになります。
-　"[LOOTBOX]:: wp : freeze"
-
-車両を設置した場合は、以下のようになります。
- "[LOOTBOX]:: Vehicle 2/4 [1985.16,7764.84,0.164642] rnd:false Exile_Bike_MountainBike"
-※"rnd"は、条件が合わなかったために、フィールド上にランダムに置かれたか？と示します
- 
-トラベラーAIを配置した場合、以下が出力されます。
-続けて、ウェイポイント先の町名となります。
-　"[LOOTBOX]:: TravelerSpawn 3 Rasman [6080.47,11182,0] 2 AIs"
- "[LOOTBOX]:: wp Nur [1905.47,11777.3,0]"
-
-アイアンマンを設置した場合、以下が出力されます。
- "[LOOTBOX]:: IronMan 1 [100.781,100.781,0] 1 AIs"
- 
-カスタム看板を設置した場合、以下が出力されます。
- "[LOOTBOX]:: put custom obejct Land_Billboard_F [0,0,0] bill0.jpg"
- 
-以下のログで完了となります。
- "[LOOTBOX]:: finished! have fun"
- 
-奇妙オブジェクトに関しては、ゲームとは直接関与しませんので、ログ出力されません。
-アイテムの中身もログ出力する場合は、以下のコメントを外してください。
-
-functions/addCargo.sqf
-//[format["content:%1",_content]] call LB_fnc_log;
-この様に出力されます。
- "[LOOTBOX]:: content:Exile_Item_PlasticBottleFreshWater,Exile_Item_RabbitSteak_Raw,Exile_Item_PlasticBottleFreshWater,Exile_Item_Catfood,Exile_Item_Bullets_556,Exile_Item_Catfood,U_C_Poor_1,Exile_Item_FuelCanisterEmpty,Exile_Item_Dogfood,Exile_Item_InstantCoffee,Exile_Item_InstantCoffee,Exile_Item_InstantCoffee,Exile_Item_MountainDupe,Exile_Item_MountainDupe,Exile_Item_Moobar,Exile_Item_GloriousKnakworst,Exile_Item_Noodles,"
-
-これらログ出力は、LB_OutputLogにて、OFFに出来ます。
-
-## ログエラーについて
-必ずログファイルを確認して、エラー記述が無いように留意してください。
-サーバアドオン起動時は、他のアドオンも並列で動作していますので、同時にログに出力されています。
-文法エラーなどの場合は、どのアドオンでエラーになっているのか、判断が難しいので注意してください。
-
-[config.sqf記述ミス]
-設定ファイルの記述ミスにより、スクリプトが続行不能になった場合に、以下が出力されます。
-
-"[LOOTBOX]:: failed to read config.sqf ;-("
-
-[オブジェクトモデルの設定]
-ログファイルに以下のようなエラーが出力された場合は、ミッション内のmission.sqmのaddons[]に追加する必要があります（使用モデルの追加）
-当アドオンに限らず、必要な設定となります。
-※LB_StrangeObjsの設定反映時のエラー
-
-Warning Message: You cannot play/edit this mission; it is dependent on downloadable content that has been deleted.
-cup_a1_editorobjects
-
-デフォルト設定の場合、以下が必要です（いずれもCUP Terrains MOD）
-cup_editor_plants_config
-cup_a1_editorobjects
-cup_a2_editorobjects
-
-## 改造について
-ほとんどの動作部分において、設定が可能なように作られていますが、希望の動作や機能が欲しい場合、お好きなように改造してください。
-省略せず、できるだけ分かりやすいように記述したつもりですので、コメント等から箇所を特定できるかと思います。
-アイデア等がありましたら、お気軽にご連絡ください。
-
-putBoxes.sqf			メインスクリプト
-config.sqf				設定ファイル
-initServer.sqf			初期化
-config.cpp				アドオン定義
-functions/
-	addCargo.sqf		コンテナオブジェクト格納
-	collectItems.sqf	アイテムリスト生成
-	findBuildings.sqf	周囲の建物オブジェクト取得
-	getBuildingPos.sqf	建物内のポジション取得
-	selectAIGear.sqf	AI装備設定
-	isSafePos.sqf		セーフエリアチェック
-	log.sqf				ログ出力
-	marker.sqf			マップマーカー
-	selectAIGear.sqf	AI装備選択
-	spawnIronman.sqf	アイロンマン生成
-	event/				イベント関連
-		eh_ContainerOpened.sqf（未使用）
-		eh_Dammaged.sqf	ＡＩダメージ時（未使用）
-		eh_Engine.sqf	車両エンジンON時
-		eh_Fired.sqf	ＡＩ発砲時
-		eh_mpKilled.sqf	ＡＩデッド時
-
-o アイロンマンの装備
-	selectAIGear.sqf
-o グレネードトラップの確立
-	eh_Engine.sqf
-
-## ライセンス・サポートについて
-完全無欠のオープンとなっておりますので、ご自由にご利用ください。
-スクリプトコードは、改造も容易ではないかと思います。
-ただ、著作の全権利を主張するのだけは勘弁してください。
-サポートは、当方NGOでもボランティアでも慈善事業のつもりでも御座いませんので、基本的には受け付けません・・が、その時の気分で対応させて頂きます。
-その辺はご了承ください。
-ご利用の際は、一声頂ければ幸いです。モチベーションのアップと、さらなるバージョンアップへの布石となります。
-
-## 既知の問題・バグ
-o 済：同じ場所に複数個、設置される場合がある
-o 済：アイテムボックスから取り出せない
-o 済：変な場所にアイテムボックスが湧く
-o 済：AI装備がおかしくなる（DMS側の問題？）
-	サーバ起動時の負荷が、若干関係してます
-
-## たぶん開発者らしいnabekから
-遊びまくったEXILEとMODコミュニティに、小さな恩返しのつもりでアドオンを開発しました。
-無論、私のサーバで実現したかった事のひとつが、これだった訳でもありますけども。
-かなり後出しになってしまいましたが、世界のどこかのサーバで稼働してたら嬉しい。
-この文書を、各国語版にしたいのですが、（無報酬ですが）ご協力していただけたら、幸いです。
-（独語・仏語・英語・ロシア語辺りがあれば完璧なんだろうけども）
-
-ご連絡の際は、ブログの方にコメントください。
-当アドオンの開発日記も書いてます。
-blog.ahh.jp
-
-当アドオンを利用してくれてる猛者サーバさんもいらっしゃってるようで嬉しい限りです。
-当アドオンに入れるかどうか迷ってるんですが、新しいアイデアもいくつかあります。
-TODO:
-	o 自販機
-		誰にも見られずにエロ本が買える?!
-	o 大きな町の外れに、スラム街を設置
-		スラム街だけでのミッションを置くとか
-	o　町バンディット戦車
-		驚異のバンディットAI
-	o トレーダーに近づかない車両パトロール
-	o 済：サーバ独自のマップロケーション設置の支援
-	o 済：カスタム看板設置の支援
-	o 色々なマップでの動作確認
-		済：Takistan
-		－：Altis
-		－：Stratis
-		－：Malden
-		－：Tanoa
-		済：Chenarus
-		－：bornholm
-		－：Esseker
-		－：Taunus
-		－：taviana
-		－：tavi
-		（ご報告お待ちしてます！！）
-
-当方管理のExileサーバもよろしくなッ！（未稼働2018/9現在）
-m9(　ﾟдﾟ)！！
-
-	[サーバ名]
-	[JP]鯖味噌:Saba-Miso Exile|PvP|Takistan
-	[マップ]
-	Takistan　（CUP Terrains mod）
-	[タイプ]
-	ハードコア過ぎるサバイバル、PvP
-	[稼働時間]
-	JST 18:00 - 24:00
-
-※サーバ名は変更されるかもしれません
-※2000円激貧PCで運用しております（詳細はブログで）
-
-以上です。お疲れ様でした。とても疲れた。。
-(；´Д｀)3...give me smoke
-
-## Change log / 更新履歴
-2018/05/17 V1.3
-アイアンマン（無敵AI）機能追加、GPSトラップ機能追加、グレネードトラップ機能追加、サーバーメッセージ配信機能追加
-キャンプファイヤー設置機能追加、マップ文字入れ機能追加、水汲み場設置機能追加
-"Exile_Magazine_10Rnd_9x39"（スナイパー用）を固定湧きにしていたので移動
-ロケーション数と処理位置をログ出力、Readmeの加筆修正
-
-2018/04/21 V1.2
-車両湧きで、稀に接触があるのを修正、奇妙オブジェクトの負荷率低下（SimpleObject化）
-AI動作バグ取り、AIパトロール機能の追加＆調整、炎上オブジェクト機能の追加、ログを見やすく若干修正
-アイテムボックス生成時バグ修正、オリジナルロケーション作成機能の追加
-地雷設置バグ修正、カスタム看板機能の追加、アイテムボックス固定湧き機能の追加
-ＡＩカスタム装備の追加（selectAIGear.sqfファイルの追加）
-デフォルト設定値の見直し、全ファイル改行コードをLFに更新
-トラベラーAI機能の追加
-
-2018/04/10 V1.1 据え置き
-デフォルト設定値の記述ミス、Readmeの加筆修正
-
-2018/04/03 V1.1
-AIリーダー忘れ、スナイパー設定追加、ロケーション位置自動調整、ログ出力周り改変、config見やすく改変、起動待機の追加
-コンテナ許容量エラーチェック、コンテナへアイテム追加時コード書き直し、奇妙オブジェクトシミュレーションフラグ追加
-ポップタブ計算方法変更、セーフエリアの除外追加（トレーダー／スポーン／各拠点）、アイテム50%集計の改変
-車両湧きの追加、負荷が掛かりそうな処理後にウェイト挿入、アイテムボックス及びＡＩの沸き場所の調整、各湧き要素の位置調整
-総当たりデバッグ作業
+	Within the location engine, we are collecting the location of the target.
+
+[Water drawing object]
+Fixed installation of objects that can craft fresh water.
+exile_3den.it can be installed without relying on the export by the pbo tool.
+
+	Technical：
+	The default object is"Land_WaterCooler_01_new_F".
+	If you have made a separate change, you will need to rewrite the code.
+
+[Custom signs]
+Custom signs can be placed anywhere on the map.
+You can put your own server color, such as server rules and logos.
+You can paste the images stored in the mission file and change the texture.
+In the Eden editor, make a note of only the number of the position and direction, please set.
+(The direction is the value of " z " in the rotation item）
+It works with all objects, even if it is not a signboard object(only configurable objects）
+
+	Technical：
+	The image file must be stored in a mission file.
+	Jpeg or Paa (Arma3 proprietary) format images are available.
+	(The size must be 2^x size）
+	※64/128/256 / 512, 512 * 256, 512 * 512
+	*If possible, set the file size to less than 20KB
+	enableSimulationGlobal/enableRopeAttach/allowDamage etc are generated with false
+	Some objects cannot change the texture.
+	(Here we recommend a sign）
+	Only one object can handle multiple textures.
+
+[Map characters]
+Put characters anywhere on the map.
+It is possible to specify the size and color specification.
+
+	Technical：
+	Because it is realized by the function of the existing map marker, it hangs a load when placed in large quantities.
+	Size will be the magnification specified for each aspect.
+	It depends on the main unit or mission settings, so you can not choose the Font from here.
+
+[Server message delivery]
+Periodically, we deliver messages to all players.
+Multiple messages can be defined, and each row can be switched to deliver.
+
+	Technical：
+	The delivery interval can be specified in seconds, but the actual delivery will include lags.
+	On the Arma3 specification, it becomes difficult to read because the font is special and the Japanese collapses.
+	because it is distributed in systemChat, there are times when it disappears immediately by scrolling.
+
+## How to install
+a3_exile_lootbox.unpack the pbo and make the necessary settings.
+* PBOManager (free) is required to manage PBO files
+※This document(readme_jp.txt)is unnecessary for operation, so please delete it
+Again, the a3_exile_lootbox.re-pack the PBO to pbo.
+
+Please place it as a PBO file in the Exile server at@ExileServer/addons/.
+The Exile server will call it automatically.
+In addition, if necessary, the mission file (mission.sqm) (see below）
+Check if there is an error in the log file when the server is running(see below）
+
+## Setting method
+There are several files in the distribution file, and you need to unpack PBO to edit the settings.
+Basically, the " config.only " sqf " is eligible for configuration Editing.
+
+	Main settings
+	o target location
+	o item type
+	o traps related
+	o Bandit AI-related
+	o strange object related
+	o fire-related objects
+	o vehicle spring related
+	o location creation
+
+	(Non-location related）
+	o traveler AI
+	o Iron Man
+	o custom signs
+
+The default configuration is a fairly simple item configuration.
+Set the position of this item box according to the environment of the server and change the setting.
+Basically, it will auto-fit on all maps as they are.
+
+[How to set]]
+Please edit it carefully according to the notation of Arma3 scripting.
+Many parts are commonly used in programming languages and have the same notation.
+If you write it incorrectly, it will be reported in the log as a script error.
+
+	o [], {},"", etc. must be paired
+	the end of line of the o Code must always end with a"; " semicolon
+	o separate elements by", " in the configuration of[]array
+	(However, after the last element, there is no need to write）
+	double-byte characters (Japanese, etc.) cannot be used in o code
+	(However, you can freely write in the comments）
+	o the character code is "UTF-8" and the line feed code should match the OS of the server
+	(Windows: CR/LF,Linux: LF）
+	when you specify the o object, you must specify the formal class name
+	the portion to set the number of o is not necessarily applied only a few minutes
+	(Due to errors, etc., the process may be skipped.This is the maximum value you would like）
+	o items in the establishment setting are written from 0.00 through 1.00.1 is 100%.
+
+	[Main files]
+	config.sqf configuration file
+	putBoxes.sqf implementation
+	./functions/ generic script file
+	readme_jp.txt this file, please delete at the time of Operation start
